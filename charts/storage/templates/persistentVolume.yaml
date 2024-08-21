@@ -10,7 +10,7 @@ spec:
 {{- range $mode := $storage.accessModes }}
     - {{ $mode }}
 {{- end }}
-  storageClassName: {{ $storage.storageClassName }}
+  storageClassName: {{ $storageName }}
   hostPath:
     path: {{ $storage.hostPath }}
 ---
