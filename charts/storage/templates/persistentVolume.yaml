@@ -1,0 +1,17 @@
+{{- range $storageName, $storage := .Values.storages }}
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: {{ $storageName }}
+spec:
+  capacity:
+    storage: {{ $storage.capacity }}
+  accessModes:
+{{- range $mode := $storage.accessModes }}
+    - {{ $mode }}
+{{- end }}
+  storageClassName: {{ $storage.storageClassName }}
+  hostPath:
+    path: {{ $storage.hostPath }}
+---
+{{- end }}
