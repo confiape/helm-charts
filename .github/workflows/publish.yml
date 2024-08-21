@@ -12,24 +12,54 @@ jobs:
 
     - name: npm install, build, and test
       run: |
-        CHART_DIR="./charts/confiape-app"
-        VERSION_FILE="$CHART_DIR/Chart.yaml"
-        CURRENT_VERSION=$(grep '^version:' $VERSION_FILE | awk '{print $2}')
-        NEW_VERSION=$(echo $CURRENT_VERSION | awk -F. -v OFS=. '{$NF++; print}')
-        echo $NEW_VERSION
-        sed -i "s/^version:.*/version: $NEW_VERSION/" $VERSION_FILE
-        helm package ./charts/confiape-app/
-        mv ./confiape-app-$NEW_VERSION.tgz /tmp/confiape-app-$NEW_VERSION.tgz 
-        git config user.name "github action"
-        git config user.email "githuactions@confiape.org"
-        git add -A
-        git commit -m "Change new Version $NEW_VERSION"
-        git push origin main
-        git fetch origin publish
-        git checkout publish
-        echo "prepair to move"
-        mv /tmp/confiape-app-$NEW_VERSION.tgz ./confiape-app-$NEW_VERSION.tgz
-        helm repo index --url https://confiape.github.io/helm-charts --merge index.yaml .
-        git add -A
-        git commit -m "add new package with version $NEW_VERSION"
-        git push origin publish
+          # Lista de charts a procesar
+          CHARTS_DIRS=("charts/confiape-app" "charts/secrets")
+
+          # Recorremos cada chart en la lista
+          for CHART_DIR in "${CHARTS_DIRS[@]}"; do
+              VERSION_FILE="$CHART_DIR/Chart.yaml"
+              
+              # Obtener la versión actual del Chart
+              CURRENT_VERSION=$(grep '^version:' $VERSION_FILE | awk '{print $2}')
+              
+              # Incrementar la versión del Chart
+              NEW_VERSION=$(echo $CURRENT_VERSION | awk -F. -v OFS=. '{$NF++; print}')
+              echo "Actualizando $CHART_DIR a la versión $NEW_VERSION"
+              
+              # Actualizar el archivo Chart.yaml con la nueva versión
+              sed -i "s/^version:.*/version: $NEW_VERSION/" $VERSION_FILE
+              
+              # Empaquetar el Chart con la nueva versión
+              helm package $CHART_DIR
+              
+              # Mover el paquete a /tmp para la siguiente etapa
+              mv ./${CHART_DIR##*/}-$NEW_VERSION.tgz /tmp/${CHART_DIR##*/}-$NEW_VERSION.tgz
+              
+              # Configuración de Git para la acción
+              git config user.name "github action"
+              git config user.email "githuactions@confiape.org"
+              
+              # Añadir y cometer el cambio de versión en la rama main
+              git add $VERSION_FILE
+              git commit -m "Change new Version $NEW_VERSION for $CHART_DIR"
+              git push origin main
+              
+              # Cambiar a la rama publish
+              git fetch origin publish
+              git checkout publish
+              
+              # Mover el paquete desde /tmp a la ubicación correcta
+              echo "Preparando para mover el paquete del chart $CHART_DIR"
+              mv /tmp/${CHART_DIR##*/}-$NEW_VERSION.tgz ./$(basename $CHART_DIR)-$NEW_VERSION.tgz
+              
+              # Actualizar el índice del repositorio Helm
+              helm repo index --url https://confiape.github.io/helm-charts --merge index.yaml .
+              
+              # Añadir y cometer el nuevo paquete en la rama publish
+              git add -A
+              git commit -m "Add new package with version $NEW_VERSION for $CHART_DIR"
+              git push origin publish
+              
+              # Volver a la rama principal
+              git checkout main
+          done
