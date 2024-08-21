@@ -3,7 +3,17 @@ entries:
   confiape-app:
   - apiVersion: v2
     appVersion: 1.16.0
-    created: "2024-08-21T13:10:23.68516816Z"
+    created: "2024-08-21T20:30:17.327014402Z"
+    description: A Helm chart for Kubernetes
+    digest: 82e248b6019e27f543135175e7671b62002f1512176a6251347fab0f3532ffbf
+    name: confiape-app
+    type: application
+    urls:
+    - https://confiape.github.io/helm-charts/confiape-app-0.2.4.tgz
+    version: 0.2.4
+  - apiVersion: v2
+    appVersion: 1.16.0
+    created: "2024-08-21T20:30:17.326633899Z"
     description: A Helm chart for Kubernetes
     digest: 3817010c4f30146eb500d918d7441a33c5219879cba9163f1e8efae626844fcc
     name: confiape-app
@@ -13,7 +23,7 @@ entries:
     version: 0.2.3
   - apiVersion: v2
     appVersion: 1.16.0
-    created: "2024-08-21T13:10:23.684800343Z"
+    created: "2024-08-21T20:30:17.325755078Z"
     description: A Helm chart for Kubernetes
     digest: f6aaccf4efe3408708cf5371e81e810f488c0bef235110b10b74d82788a10d4e
     name: confiape-app
@@ -23,7 +33,7 @@ entries:
     version: 0.2.0
   - apiVersion: v2
     appVersion: 1.16.0
-    created: "2024-08-21T13:10:23.684412248Z"
+    created: "2024-08-21T20:30:17.32518515Z"
     description: A Helm chart for Kubernetes
     digest: b5247267393f51d6a1db355f1d6d7dce85208ade219ba3ce3e0f69e9da7dc093
     name: confiape-app
@@ -31,4 +41,4 @@ entries:
     urls:
     - https://confiape.github.io/helm-charts/confiape-app-0.1.0.tgz
     version: 0.1.0
-generated: "2024-08-21T13:10:23.683885313Z"
+generated: "2024-08-21T20:30:17.324679091Z"
