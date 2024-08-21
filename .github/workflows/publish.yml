@@ -1,0 +1,32 @@
+on:
+  push:
+    branches: [ "main" ]
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v4
+
+    - name: npm install, build, and test
+      run: |
+        CHART_DIR="./charts/confiape-app"
+        VERSION_FILE="$CHART_DIR/Chart.yaml"
+        CURRENT_VERSION=$(grep '^version:' $VERSION_FILE | awk '{print $2}')
+        NEW_VERSION=$(echo $CURRENT_VERSION | awk -F. -v OFS=. '{$NF++; print}')
+        echo $NEW_VERSION
+        sed -i "s/^version:.*/version: $NEW_VERSION/" $VERSION_FILE
+        helm package ./charts/confiape-app/
+        mv ./confiape-app-$NEW_VERSION.tgz /tmp/confiape-app-$NEW_VERSION.tgz 
+        git config user.name "github action"
+        git config user.email "githuactions@confiape.org"
+        git add -A
+        git commit -m "Change new Version $NEW_VERSION"
+        git push origin main
+        git checkout publish
+        mv /tmp/confiape-app-$NEW_VERSION.tgz ./confiape-app-$NEW_VERSION.tgz
+        helm repo index --url https://confiape.github.io/helm-charts --merge index.yaml . 
+        git add -A
+        git commit -m "add new package with version $NEW_VERSION"
+        git push origin publish
