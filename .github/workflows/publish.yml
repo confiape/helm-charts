@@ -25,6 +25,7 @@ jobs:
         git add -A
         git commit -m "Change new Version $NEW_VERSION"
         git push origin main
+        git fetch origin publish
         git checkout publish
         mv /tmp/confiape-app-$NEW_VERSION.tgz ./confiape-app-$NEW_VERSION.tgz
         helm repo index --url https://confiape.github.io/helm-charts --merge index.yaml . 
