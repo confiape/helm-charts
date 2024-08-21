@@ -1,13 +1,11 @@
 #storages:
 #  my-storage-1:
-#    storageClassName: my-storageclass-1
 #    capacity: 10Gi
 #    accessModes:
 #      - ReadWriteOnce
 #    hostPath: /mnt/disks/vol1
 #
 #  my-storage-2:
-#    storageClassName: my-storageclass-2
 #    capacity: 20Gi
 #    accessModes:
 #      - ReadWriteOnce
