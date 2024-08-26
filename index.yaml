@@ -3,7 +3,7 @@ entries:
   confiape-app:
   - apiVersion: v2
     appVersion: 1.16.0
-    created: "2024-08-26T17:26:29.999213309Z"
+    created: "2024-08-26T17:26:31.410396391Z"
     description: A Helm chart for Kubernetes
     digest: 68cc98b9c194981a723e83f5bb92c7890983a6cc7bc0358badd67065256006ed
     name: confiape-app
@@ -13,7 +13,7 @@ entries:
     version: 0.2.13
   - apiVersion: v2
     appVersion: 1.16.0
-    created: "2024-08-26T17:26:29.998869198Z"
+    created: "2024-08-26T17:26:31.410048964Z"
     description: A Helm chart for Kubernetes
     digest: b09a93eb5f2b1926ca9904475cdca959590c743c4f0e905dbef2ab070fc83cd0
     name: confiape-app
@@ -23,7 +23,7 @@ entries:
     version: 0.2.12
   - apiVersion: v2
     appVersion: 1.16.0
-    created: "2024-08-26T17:26:29.998526409Z"
+    created: "2024-08-26T17:26:31.409694804Z"
     description: A Helm chart for Kubernetes
     digest: 0bb936f60efe701483b9febfceb9a67b9a03937c939175a7189cdb39934b450e
     name: confiape-app
@@ -33,7 +33,7 @@ entries:
     version: 0.2.11
   - apiVersion: v2
     appVersion: 1.16.0
-    created: "2024-08-26T17:26:29.998171368Z"
+    created: "2024-08-26T17:26:31.409309205Z"
     description: A Helm chart for Kubernetes
     digest: 027da51f63eb3db4498ddb92073636f29bc671bc7a9efda9c33d047af1fdd01b
     name: confiape-app
@@ -43,7 +43,7 @@ entries:
     version: 0.2.10
   - apiVersion: v2
     appVersion: 1.16.0
-    created: "2024-08-26T17:26:30.00155281Z"
+    created: "2024-08-26T17:26:31.412808527Z"
     description: A Helm chart for Kubernetes
     digest: 00a87b8caf27c4cc5d0a10b3ec1add10b080dbd1e42e3c7735a865e597725820
     name: confiape-app
@@ -53,7 +53,7 @@ entries:
     version: 0.2.9
   - apiVersion: v2
     appVersion: 1.16.0
-    created: "2024-08-26T17:26:30.001225109Z"
+    created: "2024-08-26T17:26:31.412463534Z"
     description: A Helm chart for Kubernetes
     digest: 2e94a7464e90338b8450a9ed15604a8abae525fa7fe721307519808ec3def48f
     name: confiape-app
@@ -63,7 +63,7 @@ entries:
     version: 0.2.8
   - apiVersion: v2
     appVersion: 1.16.0
-    created: "2024-08-26T17:26:30.000904782Z"
+    created: "2024-08-26T17:26:31.412119733Z"
     description: A Helm chart for Kubernetes
     digest: 487e3bdf35e74e714da63e0cce0beffae520fa279e918cbd9dd05f4c3069237e
     name: confiape-app
@@ -73,7 +73,7 @@ entries:
     version: 0.2.7
   - apiVersion: v2
     appVersion: 1.16.0
-    created: "2024-08-26T17:26:30.000557014Z"
+    created: "2024-08-26T17:26:31.411777946Z"
     description: A Helm chart for Kubernetes
     digest: 512afe251368c16a211e397b2dbb65e09ce0a581d53b3dc688640fe4a3a1c516
     name: confiape-app
@@ -83,7 +83,7 @@ entries:
     version: 0.2.6
   - apiVersion: v2
     appVersion: 1.16.0
-    created: "2024-08-26T17:26:30.000230205Z"
+    created: "2024-08-26T17:26:31.411414519Z"
     description: A Helm chart for Kubernetes
     digest: ed7a38fa411227b94ff9ab0b3fcc1ab31ee3b127997e6ca99badf5b775e2ab11
     name: confiape-app
@@ -93,7 +93,7 @@ entries:
     version: 0.2.5
   - apiVersion: v2
     appVersion: 1.16.0
-    created: "2024-08-26T17:26:29.999901482Z"
+    created: "2024-08-26T17:26:31.411079975Z"
     description: A Helm chart for Kubernetes
     digest: 82e248b6019e27f543135175e7671b62002f1512176a6251347fab0f3532ffbf
     name: confiape-app
@@ -103,7 +103,7 @@ entries:
     version: 0.2.4
   - apiVersion: v2
     appVersion: 1.16.0
-    created: "2024-08-26T17:26:29.999536241Z"
+    created: "2024-08-26T17:26:31.410735283Z"
     description: A Helm chart for Kubernetes
     digest: 3817010c4f30146eb500d918d7441a33c5219879cba9163f1e8efae626844fcc
     name: confiape-app
@@ -113,7 +113,7 @@ entries:
     version: 0.2.3
   - apiVersion: v2
     appVersion: 1.16.0
-    created: "2024-08-26T17:26:29.99779716Z"
+    created: "2024-08-26T17:26:31.408462399Z"
     description: A Helm chart for Kubernetes
     digest: f6aaccf4efe3408708cf5371e81e810f488c0bef235110b10b74d82788a10d4e
     name: confiape-app
@@ -123,7 +123,7 @@ entries:
     version: 0.2.0
   - apiVersion: v2
     appVersion: 1.16.0
-    created: "2024-08-26T17:26:29.997416781Z"
+    created: "2024-08-26T17:26:31.407753117Z"
     description: A Helm chart for Kubernetes
     digest: b5247267393f51d6a1db355f1d6d7dce85208ade219ba3ce3e0f69e9da7dc093
     name: confiape-app
@@ -134,7 +134,7 @@ entries:
   mssql:
   - apiVersion: v2
     appVersion: 1.16.0
-    created: "2024-08-26T17:26:30.002397474Z"
+    created: "2024-08-26T17:26:31.413162697Z"
     description: A Helm chart for Kubernetes
     digest: 2a6d8fc9bd245d43009b6ffe1edda14b7f8560c92361f6fb9acf686f47141a2c
     name: mssql
@@ -145,7 +145,17 @@ entries:
   secrets:
   - apiVersion: v2
     appVersion: 1.16.0
-    created: "2024-08-26T17:26:30.003865768Z"
+    created: "2024-08-26T17:26:31.413425356Z"
+    description: A Helm chart for Kubernetes
+    digest: efe0ee7371cf6ea340356372be80b440bce94507ca9b36bb94b7b4cc944c3af9
+    name: secrets
+    type: application
+    urls:
+    - https://confiape.github.io/helm-charts/secrets-0.1.10.tgz
+    version: 0.1.10
+  - apiVersion: v2
+    appVersion: 1.16.0
+    created: "2024-08-26T17:26:31.414617398Z"
     description: A Helm chart for Kubernetes
     digest: ca8e11a626fbe9ba41e634439310e5e9ca9c2f4bf2969af99f2a75999686908b
     name: secrets
@@ -155,7 +165,7 @@ entries:
     version: 0.1.9
   - apiVersion: v2
     appVersion: 1.16.0
-    created: "2024-08-26T17:26:30.00375972Z"
+    created: "2024-08-26T17:26:31.414224936Z"
     description: A Helm chart for Kubernetes
     digest: 5a136abcb8326289235cac319fcc2787bf0dd972665588f2c9f5fe6546004390
     name: secrets
@@ -165,7 +175,7 @@ entries:
     version: 0.1.8
   - apiVersion: v2
     appVersion: 1.16.0
-    created: "2024-08-26T17:26:30.003612276Z"
+    created: "2024-08-26T17:26:31.414121634Z"
     description: A Helm chart for Kubernetes
     digest: 26a8253f84694236d56bb6915f814d21bb917bea003833cacb07a36565e93e29
     name: secrets
@@ -175,7 +185,7 @@ entries:
     version: 0.1.7
   - apiVersion: v2
     appVersion: 1.16.0
-    created: "2024-08-26T17:26:30.003490559Z"
+    created: "2024-08-26T17:26:31.414020485Z"
     description: A Helm chart for Kubernetes
     digest: adf79b565010eafe17b5d356bec8bcb3cf08d7b589219f9481413cee12f518ef
     name: secrets
@@ -185,7 +195,7 @@ entries:
     version: 0.1.6
   - apiVersion: v2
     appVersion: 1.16.0
-    created: "2024-08-26T17:26:30.003376897Z"
+    created: "2024-08-26T17:26:31.413917934Z"
     description: A Helm chart for Kubernetes
     digest: db86f89c43d07111b675868ac9fab930c5c953b2792600d71a07c077b4a535d3
     name: secrets
@@ -195,7 +205,7 @@ entries:
     version: 0.1.5
   - apiVersion: v2
     appVersion: 1.16.0
-    created: "2024-08-26T17:26:30.003228881Z"
+    created: "2024-08-26T17:26:31.413790607Z"
     description: A Helm chart for Kubernetes
     digest: 663831f18cb27f81e7df70f85e718f0f0ec56a17c9c8ea5237fdae72a3f2875a
     name: secrets
@@ -205,7 +215,7 @@ entries:
     version: 0.1.4
   - apiVersion: v2
     appVersion: 1.16.0
-    created: "2024-08-26T17:26:30.003079673Z"
+    created: "2024-08-26T17:26:31.413655966Z"
     description: A Helm chart for Kubernetes
     digest: 134d7a3affc3df532d300d38fa71b1f78b4208f6fe38aed101bedd945c8d1802
     name: secrets
@@ -215,7 +225,7 @@ entries:
     version: 0.1.3
   - apiVersion: v2
     appVersion: 1.16.0
-    created: "2024-08-26T17:26:30.00292232Z"
+    created: "2024-08-26T17:26:31.41352907Z"
     description: A Helm chart for Kubernetes
     digest: 89841ec1d3415bc256059cff9b24524b40b74085c24a9d2f1cc9326b80abad21
     name: secrets
@@ -225,7 +235,7 @@ entries:
     version: 0.1.2
   - apiVersion: v2
     appVersion: 1.16.0
-    created: "2024-08-26T17:26:30.002776227Z"
+    created: "2024-08-26T17:26:31.413315692Z"
     description: A Helm chart for Kubernetes
     digest: 3590211305048389ff9989afc4a0a4ab0f7546f7a72d05860d2a41514f944d5b
     name: secrets
@@ -236,7 +246,7 @@ entries:
   storage:
   - apiVersion: v2
     appVersion: 1.16.0
-    created: "2024-08-26T17:26:30.004303975Z"
+    created: "2024-08-26T17:26:31.415479497Z"
     description: A Helm chart for Kubernetes
     digest: 754af1d2d11deaae5ffc714b7181f9de70b9651409742ee3082d3db469767cf2
     name: storage
@@ -246,7 +256,7 @@ entries:
     version: 0.1.4
   - apiVersion: v2
     appVersion: 1.16.0
-    created: "2024-08-26T17:26:30.004195162Z"
+    created: "2024-08-26T17:26:31.415351068Z"
     description: A Helm chart for Kubernetes
     digest: 47c477326ebc0abe0cbca68e6b83f697b23067308f0e9f76fa622e1e47c769e6
     name: storage
@@ -256,7 +266,7 @@ entries:
     version: 0.1.3
   - apiVersion: v2
     appVersion: 1.16.0
-    created: "2024-08-26T17:26:30.004086159Z"
+    created: "2024-08-26T17:26:31.415041157Z"
     description: A Helm chart for Kubernetes
     digest: 68cafc79d78a0d19c7454d71e0005207c34fbdd4056fef28c1480f958611c1aa
     name: storage
@@ -266,7 +276,7 @@ entries:
     version: 0.1.2
   - apiVersion: v2
     appVersion: 1.16.0
-    created: "2024-08-26T17:26:30.003976094Z"
+    created: "2024-08-26T17:26:31.414834132Z"
     description: A Helm chart for Kubernetes
     digest: f5643dd3b9c988a97de984e890bf33cf29d8f1aceb480efd12faa7fdcc80aa9a
     name: storage
@@ -274,4 +284,4 @@ entries:
     urls:
     - https://confiape.github.io/helm-charts/storage-0.1.1.tgz
     version: 0.1.1
-generated: "2024-08-26T17:26:29.996905759Z"
+generated: "2024-08-26T17:26:31.407045749Z"
