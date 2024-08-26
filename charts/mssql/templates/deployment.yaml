@@ -1,7 +1,7 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: {{ include "mssql-latest.fullname" . }}
+  name: {{ include "mssql-latest.fullname" . }}-secret
   labels:
     {{- include "mssql-latest.labels" . | nindent 4 }}
 spec:
@@ -41,7 +41,7 @@ spec:
            - name: SA_PASSWORD
              valueFrom:
               secretKeyRef:
-               name: mssql-secret
+               name: {{ include "mssql-latest.fullname" . }}-secret
                key: {{  template "mssql.sapassword" . }}
           volumeMounts:
            - name: mssqldb
@@ -57,16 +57,16 @@ spec:
       volumes:
        - name: mssqldb
          persistentVolumeClaim:
-          claimName: mssql-data
+          claimName: {{ include "mssql-latest.fullname" . }}-data
        - name: mssqluserdb
          persistentVolumeClaim:
-          claimName: mssql-userdb
+          claimName: {{ include "mssql-latest.fullname" . }}-userdb-data
        - name: mssqllog
          persistentVolumeClaim:
-          claimName: mssql-log
+          claimName: {{ include "mssql-latest.fullname" . }}-log-data
        - name: mssqltemp
          persistentVolumeClaim:
-          claimName: mssql-temp          
+          claimName: {{ include "mssql-latest.fullname" . }}-temp-data
        - name: mssql-config-volume
          configMap:
-          name: mssql-config
+          name: {{ include "mssql-latest.fullname" . }}-config
