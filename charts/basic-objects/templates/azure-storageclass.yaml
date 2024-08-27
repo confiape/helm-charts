@@ -1,0 +1,13 @@
+{{- if eq .Values.azureStorage.enabled true }}
+apiVersion: storage.k8s.io/v1
+kind: StorageClass
+metadata:
+  name: {{ include "basic-objects.fullname" . }}-azure-blob
+provisioner: blob.csi.azure.com
+allowVolumeExpansion: true
+parameters:
+  csi.storage.k8s.io/provisioner-secret-name: {{ .Values.azureStorage.secretName}}
+  csi.storage.k8s.io/provisioner-secret-namespace: {{ .Release.Namespace }}
+  csi.storage.k8s.io/node-stage-secret-name: {{ .Values.azureStorage.secretName}}
+  csi.storage.k8s.io/node-stage-secret-namespace: {{ .Release.Namespace }}
+{{- end }}
