@@ -41,5 +41,7 @@ pvc:
   tempsize: 2Gi
   mssqldataaccessMode: ReadWriteOnce
   mssqldbsize: 2Gi
+  backupaccessMode: ReadWriteOnce
+  backupsize: 10Gi
 
 
