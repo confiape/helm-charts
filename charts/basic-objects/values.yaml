@@ -18,3 +18,7 @@ REPO_URL: x
 RUNNER_TOKEN: x
 RUNNER_NAME: office-k8s
 RUNNER_WORKDIR: /tmp/runner/work
+
+azureStorage:
+  enabled: true
+  secretName: azure-secret
