@@ -54,6 +54,8 @@ spec:
              mountPath: /var/opt/mssql/tempdb
            - name: mssql-config-volume
              mountPath: /var/opt/config
+           - name: mssql-backup
+             mountPath: /backup
       volumes:
        - name: mssqldb
          persistentVolumeClaim:
@@ -67,6 +69,10 @@ spec:
        - name: mssqltemp
          persistentVolumeClaim:
           claimName: {{ include "mssql-latest.fullname" . }}-temp-data
+       - name: mssql-backup
+         persistentVolumeClaim:
+           claimName: {{ include "mssql-latest.fullname" . }}-backup
        - name: mssql-config-volume
          configMap:
           name: {{ include "mssql-latest.fullname" . }}-config
+

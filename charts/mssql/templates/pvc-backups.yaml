@@ -1,0 +1,12 @@
+kind: PersistentVolumeClaim
+apiVersion: v1
+metadata:
+  name: {{ include "mssql-latest.fullname" . }}-backup
+  annotations:
+    volume.beta.kubernetes.io/storage-class: {{ .Values.pvc.StorageClass | quote }}
+spec:
+  accessModes:
+  - {{ .Values.pvc.backupaccessMode | quote}}
+  resources:
+    requests:
+      storage: {{ .Values.pvc.backupsize}}
