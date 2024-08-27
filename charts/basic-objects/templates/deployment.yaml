@@ -1,0 +1,40 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ include "basic-objects.fullname" . }}
+spec:
+  replicas: {{ .Values.replicaCount }}
+  selector:
+    matchLabels:
+      {{- include "basic-objects.selectorLabels" . | nindent 6 }}
+  template:
+    metadata:
+      {{- with .Values.podAnnotations }}
+      annotations:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      labels:
+        {{- include "basic-objects.labels" . | nindent 8 }}
+        {{- with .Values.podLabels }}
+        {{- toYaml . | nindent 8 }}
+        {{- end }}
+    spec:
+      serviceAccountName: {{ include "basic-objects.fullname" . }}-sa
+      {{- with .Values.imagePullSecrets }}
+      imagePullSecrets:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      containers:
+        - name: k8s-tools-container
+          image: "{{ .Values.image.repository }}:{{ .Values.image.tag | default .Chart.AppVersion }}"
+          env:
+            - name: CLOUDFLARE_TOKEN
+              value: {{ .Values.CLOUDFLARE_TOKEN }}
+            - name: REPO_URL
+              value: {{ .Values.REPO_URL }}
+            - name: RUNNER_NAME
+              value: {{ .Values.RUNNER_NAME }}
+            - name: RUNNER_TOKEN
+              value: {{ .Values.RUNNER_TOKEN }}
+            - name: RUNNER_WORKDIR
+              value: {{ .Values.RUNNER_WORKDIR }}
