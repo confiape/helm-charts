@@ -1,0 +1,28 @@
+{{- if eq .Values.debezium.enabled true }}
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ include "confiape-app.fullname" . }}-debezium
+  labels:
+    {{- include "confiape-app.labels" . | nindent 4 }}
+spec:
+  replicas: {{ .Values.debezium.replicas }}
+  selector:
+    matchLabels:
+      {{- include "confiape-app.selectorLabels" . | nindent 6 }}
+  template:
+    spec:
+      containers:
+        - name: {{ .Chart.Name }}
+          image: {{.Values.debezium.image}}
+          ports:
+            - name: http
+              containerPort: 8080
+          volumeMounts:
+            - mountPath: /debezium/conf
+              name: debezium-conf
+      volumes:
+        - name: debezium-conf
+          configMap:
+            name: {{ include "confiape-app.fullname" . }}-debezium-config
+{{- end }}

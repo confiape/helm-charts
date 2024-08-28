@@ -5,6 +5,9 @@ metadata:
   name: {{ include "confiape-app.fullname" . }}-rabbitmq
 spec:
   replicas: {{.Values.rabbitmq.replicas}}
+  secretBackend:
+    externalSecret:
+      name: {{ include "confiape-app.fullname" . }}-rabbitmq-secret
   persistence:
     storageClassName: {{.Values.rabbitmq.storageClass}}
     storage: {{.Values.rabbitmq.storageSize}}
