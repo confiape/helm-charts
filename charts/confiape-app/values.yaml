@@ -121,7 +121,7 @@ debezium:
   rabbitmqExchange: loan
   rabbitmqRoutingKey: loan
   sqlServerHost: host
-  sqlServerPort: host
+  sqlServerPort: 1433
   sqlServerUser: host
   sqlServerPassword: host
   sqlServerDbName: host
