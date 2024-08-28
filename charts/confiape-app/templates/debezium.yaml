@@ -11,6 +11,10 @@ spec:
     matchLabels:
       app: {{ include "confiape-app.fullname" . }}-debezium
   template:
+    metadata:
+      labels:
+        app: {{ include "confiape-app.fullname" . }}-debezium
+
     spec:
       containers:
         - name: {{ .Chart.Name }}
