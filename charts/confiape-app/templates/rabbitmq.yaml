@@ -1,0 +1,11 @@
+{{- if eq .Values.rabbitmq.enabled true}}
+apiVersion: rabbitmq.com/v1beta1
+kind: RabbitmqCluster
+metadata:
+  name: {{ include "confiape-app.fullname" . }}-rabbitmq
+spec:
+  replicas: {{.Values.rabbitmq.replicas}}
+  persistence:
+    storageClassName: {{.Values.rabbitmq.storageClass}}
+    storage: {{.Values.rabbitmq.storageSize}}
+{{- end }}
