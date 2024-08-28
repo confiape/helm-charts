@@ -4,7 +4,6 @@ metadata:
   name: {{ include "confiape-app.fullname" . }}-debezium-config
 data:
   application.properties: |
-    # Sink connector config - RabbitMQ
     debezium.sink.type=rabbitmq
     debezium.sink.rabbitmq.connection.host={{ include "confiape-app.fullname" . }}-rabbitmq.{{.Release.Namespace}}.svc
     debezium.sink.rabbitmq.connection.port=5672
@@ -14,8 +13,6 @@ data:
     debezium.sink.rabbitmq.ackTimeout=3000
     debezium.sink.rabbitmq.exchange={{.Values.debezium.rabbitmqExchange}}
     debezium.sink.rabbitmq.routingKey={{.Values.debezium.rabbitmqRoutingKey}}
-
-    # Source connector config - SQL Server
     debezium.source.connector.class=io.debezium.connector.sqlserver.SqlServerConnector
     debezium.source.database.hostname={{.Values.debezium.sqlServerHost}}
     debezium.source.database.port={{.Values.debezium.sqlServerPort}}
@@ -23,14 +20,9 @@ data:
     debezium.source.database.password={{.Values.debezium.sqlServerPassword}}
     debezium.source.database.dbname={{.Values.debezium.sqlServerDbName}}
     debezium.source.database.server.name={{.Values.debezium.sqlServerName}}
-
     debezium.source.database.history=io.debezium.relational.history.MemoryDatabaseHistory
     debezium.source.table.include.list={{.Values.debezium.sqlserverIncludeTables}}
     debezium.source.topic.prefix=
-
-    # Format config
     debezium.format.key=json
     debezium.format.value=json
-
-    # Quarkus
     quarkus.log.console.json=false
