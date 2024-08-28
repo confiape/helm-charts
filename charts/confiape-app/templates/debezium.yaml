@@ -1,4 +1,4 @@
-{{- if .Values.debezium.enabled  }}
+
 apiVersion: apps/v1
 kind: Deployment
 metadata:
@@ -25,4 +25,3 @@ spec:
         - name: debezium-conf
           configMap:
             name: {{ include "confiape-app.fullname" . }}-debezium-config
-{{- end }}
