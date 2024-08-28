@@ -3,11 +3,13 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: {{ include "confiape-app.fullname" . }}-debezium
+  labels:
+    app: {{ include "confiape-app.fullname" . }}-debezium
 spec:
   replicas: {{ .Values.debezium.replicas }}
   selector:
     matchLabels:
-      {{- include "confiape-app.selectorLabels" . | nindent 6 }}
+      app: {{ include "confiape-app.fullname" . }}-debezium
   template:
     spec:
       containers:
