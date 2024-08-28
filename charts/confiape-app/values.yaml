@@ -108,14 +108,12 @@ affinity: {}
 env: []
 envFrom: []
 rabbitmq:
-  enabled: true
   replicas: 3
   storageClass: local-path
   storageSize: 5Gi
   username: username
   password: super-secure-password@@
 debezium:
-  enabled: true
   replicas: 1
   image: quay.io/debezium/server:2.5
   rabbitmqExchange: loan
