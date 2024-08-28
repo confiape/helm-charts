@@ -107,3 +107,8 @@ tolerations: []
 affinity: {}
 env: []
 envFrom: []
+rabbitmq:
+  enabled: true
+  replicas: 3
+  storageClass: local-path
+  storageSize: 5Gi
