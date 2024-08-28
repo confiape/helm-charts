@@ -6,7 +6,7 @@ data:
   application.properties: |
     # Sink connector config - RabbitMQ
     debezium.sink.type=rabbitmq
-    debezium.sink.rabbitmq.connection.host={{ include "confiape-app.fullname" . }}-rabbitmq
+    debezium.sink.rabbitmq.connection.host={{ include "confiape-app.fullname" . }}-rabbitmq.{{.Release.Namespace}}.svc
     debezium.sink.rabbitmq.connection.port=5672
     debezium.sink.rabbitmq.connection.username={{.Values.rabbitmq.username}}
     debezium.sink.rabbitmq.connection.password={{.Values.rabbitmq.password}}
