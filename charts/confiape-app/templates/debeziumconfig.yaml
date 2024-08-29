@@ -22,7 +22,7 @@ data:
     debezium.source.database.server.name={{.Values.debezium.sqlServerName}}
     debezium.source.database.history=io.debezium.relational.history.MemoryDatabaseHistory
     debezium.source.table.include.list={{.Values.debezium.sqlserverIncludeTables}}
-    debezium.source.topic.prefix=
+    debezium.source.topic.prefix={{.Values.debezium.rabbitmqTopicPrefix}}
     debezium.format.key=json
     debezium.format.value=json
     quarkus.log.console.json=false
