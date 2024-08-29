@@ -13,16 +13,22 @@ data:
     debezium.sink.rabbitmq.ackTimeout=3000
     debezium.sink.rabbitmq.exchange={{.Values.debezium.rabbitmqExchange}}
     debezium.sink.rabbitmq.routingKey={{.Values.debezium.rabbitmqRoutingKey}}
+
     debezium.source.connector.class=io.debezium.connector.sqlserver.SqlServerConnector
     debezium.source.database.hostname={{.Values.debezium.sqlServerHost}}
     debezium.source.database.port={{.Values.debezium.sqlServerPort}}
     debezium.source.database.user={{.Values.debezium.sqlServerUser}}
     debezium.source.database.password={{.Values.debezium.sqlServerPassword}}
-    debezium.source.database.dbname={{.Values.debezium.sqlServerDbName}}
     debezium.source.database.names={{.Values.debezium.sqlServerDbName}}
-    debezium.source.database.server.name={{.Values.debezium.sqlServerName}}
-    debezium.source.database.history=io.debezium.relational.history.MemoryDatabaseHistory
     debezium.source.database.trustServerCertificate=true
+
+
+    debezium.source.plugin.name=pgoutput
+    debezium.source.offset.storage.file.filename=data/offsets.dat
+    debezium.source.offset.flush.interval.ms=0
+    debezium.source.database.allowPublicKeyRetrieval=true
+    debezium.source.schema.history.internal=io.debezium.relational.history.MemorySchemaHistory
+
     debezium.source.table.include.list={{.Values.debezium.sqlserverIncludeTables}}
     debezium.source.topic.prefix={{.Values.debezium.rabbitmqTopicPrefix}}
     debezium.format.key=json
