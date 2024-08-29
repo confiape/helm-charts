@@ -42,5 +42,6 @@ spec:
   source: {{ .Values.debezium.rabbitmqExchange}}
   destination:  {{ .Values.debezium.rabbitmqExchange}}
   destinationType: queue
+  routingKey: {{ .Values.debezium.rabbitmqRoutingKey}}
   rabbitmqClusterReference:
     name: {{ include "confiape-app.fullname" . }}-rabbitmq
