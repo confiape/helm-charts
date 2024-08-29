@@ -19,8 +19,10 @@ data:
     debezium.source.database.user={{.Values.debezium.sqlServerUser}}
     debezium.source.database.password={{.Values.debezium.sqlServerPassword}}
     debezium.source.database.dbname={{.Values.debezium.sqlServerDbName}}
+    debezium.source.database.names={{.Values.debezium.sqlServerDbName}}
     debezium.source.database.server.name={{.Values.debezium.sqlServerName}}
     debezium.source.database.history=io.debezium.relational.history.MemoryDatabaseHistory
+    debezium.source.database.trustServerCertificate=true
     debezium.source.table.include.list={{.Values.debezium.sqlserverIncludeTables}}
     debezium.source.topic.prefix={{.Values.debezium.rabbitmqTopicPrefix}}
     debezium.format.key=json
