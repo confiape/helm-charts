@@ -124,5 +124,4 @@ debezium:
   sqlServerUser: host
   sqlServerPassword: host
   sqlServerDbName: host
-  sqlServerName: host
   sqlserverIncludeTables: host
