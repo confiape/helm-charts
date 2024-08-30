@@ -22,6 +22,10 @@ data:
     debezium.source.database.names={{.Values.debezium.sqlServerDbName}}
     debezium.source.database.trustServerCertificate=true
 
+    debezium.source.event.processing.failure.handling.mode=ignore
+    include.schema.changes=false
+    transforms.unwrap.delete.handling.mode=rewrite
+
 
     debezium.source.plugin.name=pgoutput
     debezium.source.offset.storage.file.filename=data/offsets.dat
