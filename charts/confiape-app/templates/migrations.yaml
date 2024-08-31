@@ -1,7 +1,7 @@
 apiVersion: batch/v1
 kind: Job
 metadata:
-  name: {{ include "confiape-app.fullname" . }}-migrations
+  name: {{ include "confiape-app.fullname" . }}-migrations-{{.Release.Revision}}
   labels:
     app: {{ include "confiape-app.fullname" . }}-migrations
 spec:
