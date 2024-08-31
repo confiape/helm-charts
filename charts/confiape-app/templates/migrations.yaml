@@ -17,7 +17,7 @@ spec:
             {{- toYaml . | nindent 12 }}
           {{- end }}
           name:  {{ include "confiape-app.fullname" . }}-migrations
-          image: "{{ .Values.image.repository }}:{{ .Values.image.migrationsTag | default .Chart.AppVersion }}"
+          image: "{{ .Values.image.repository }}:{{ .Values.image.tag | default .Chart.AppVersion }}-migrations"
       restartPolicy: Never
   backoffLimit: 1
 
