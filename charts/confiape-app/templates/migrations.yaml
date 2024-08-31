@@ -20,6 +20,6 @@ spec:
           {{- end }}
           image: "{{ .Values.image.repository }}:{{ .Values.image.tag | default .Chart.AppVersion }}-migrations"
       restartPolicy: Never
-  backoffLimit: 1
+  backoffLimit: 3
 
 
