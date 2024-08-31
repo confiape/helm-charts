@@ -1,0 +1,24 @@
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: {{ include "confiape-app.fullname" . }}-migrations
+  labels:
+    app: {{ include "confiape-app.fullname" . }}-migrations
+spec:
+  template:
+    spec:
+      {{- with .Values.imagePullSecrets }}
+      imagePullSecrets:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      containers:
+          {{- with .Values.envFrom }}
+          envFrom:
+            {{- toYaml . | nindent 12 }}
+          {{- end }}
+          name:  {{ include "confiape-app.fullname" . }}-migrations
+          image: "{{ .Values.image.repository }}:{{ .Values.image.migrationsTag | default .Chart.AppVersion }}"
+      restartPolicy: Never
+  backoffLimit: 1
+
+
