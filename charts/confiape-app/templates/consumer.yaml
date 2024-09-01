@@ -1,0 +1,32 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ include "confiape-app.fullname" . }}-consumer
+  labels:
+    app: {{ include "confiape-app.fullname" . }}-consumer
+spec:
+  replicas: {{ .Values.replicaCount }}
+  selector:
+    matchLabels:
+      app: {{ include "confiape-app.fullname" . }}-consumer
+  template:
+    metadata:
+      labels:
+        app: {{ include "confiape-app.fullname" . }}-consumer
+    spec:
+      {{- with .Values.imagePullSecrets }}
+      imagePullSecrets:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      containers:
+        - name: {{ .Chart.Name }}-consumer
+          image: "{{ .Values.image.repository }}:{{ .Values.image.tag | default .Chart.AppVersion }}-consumer"
+          imagePullPolicy: {{ .Values.image.pullPolicy }}
+          env:
+            - name: ConnectionStrings__Mssql
+              value: {{ .Values.consumer.mssql }}
+            - name: ConnectionStrings__RabbitMQ
+              value: {{ .Values.consumer.RabbitMQ }}
+            - name:  QueueName
+              value: {{ .Values.consumer.QueueName}}
+

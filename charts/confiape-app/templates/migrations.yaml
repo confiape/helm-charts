@@ -13,7 +13,6 @@ spec:
       {{- end }}
       containers:
         - name:  {{ include "confiape-app.fullname" . }}-migrations
-
           {{- with .Values.envFrom }}
           envFrom:
             {{- toYaml . | nindent 12 }}

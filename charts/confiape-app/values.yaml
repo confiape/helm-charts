@@ -126,3 +126,7 @@ debezium:
   sqlServerPassword: host
   sqlServerDbName: host
   sqlserverIncludeTables: host
+consumer:
+  mssql: x
+  RabbitMQ: x
+  QueueName: loan
