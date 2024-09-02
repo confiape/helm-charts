@@ -2,30 +2,32 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: {{ include "confiape-app.fullname" . }}-debezium
+  name: {{ include "debezium.fullname" . }}
   labels:
-    app: {{ include "confiape-app.fullname" . }}-debezium
+    app: {{ include "debezium.fullname" . }}
 spec:
-  replicas: {{ .Values.debezium.replicas }}
+  replicas: 1
   selector:
     matchLabels:
-      app: {{ include "confiape-app.fullname" . }}-debezium
+      app: {{ include "debezium.fullname" . }}
   template:
     metadata:
       labels:
-        app: {{ include "confiape-app.fullname" . }}-debezium
-
+        app: {{ include "debezium.fullname" . }}
     spec:
       containers:
         - name: {{ .Chart.Name }}
-          image: {{.Values.debezium.image}}
+          image: {{.Values.image}}
+          imagePullPolicy: IfNotPresent
           ports:
             - name: http
               containerPort: 8080
           volumeMounts:
             - mountPath: /debezium/conf
               name: debezium-conf
+          readinessProbe:
+            {{- toYaml .Values.readinessProbe | nindent 12 }}
       volumes:
         - name: debezium-conf
           configMap:
-            name: {{ include "confiape-app.fullname" . }}-debezium-config
+            name: {{ include "debezium.fullname" . }}-config

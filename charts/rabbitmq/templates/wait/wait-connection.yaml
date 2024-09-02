@@ -1,0 +1,36 @@
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: "{{ include "rabbitmq.fullname" . }}-test-connection"
+  labels:
+    app.kubernetes.io/name: "{{ include "rabbitmq.name" . }}"
+spec:
+  backoffLimit: 0
+  ttlSecondsAfterFinished: 30
+  template:
+    spec:
+      restartPolicy: Never
+      containers:
+        - name: wait-for-rabbitmq
+          image: curlimages/curl:7.85.0
+          env:
+            - name: RABBITMQ_USER
+              valueFrom:
+                secretKeyRef:
+                  name: "{{ include "rabbitmq.fullname" . }}-rabbitmq-secret"
+                  key: username
+            - name: RABBITMQ_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: "{{ include "rabbitmq.fullname" . }}-rabbitmq-secret"
+                  key: password
+          command:
+            - sh
+            - -c
+            - >
+              until curl -u $RABBITMQ_USER:$RABBITMQ_PASSWORD -s -o /dev/null -w "%{http_code}" http://{{ include "rabbitmq.fullname" . }}-rabbitmq:15672/api/overview | grep -q "200";
+              do
+                echo "Waiting for RabbitMQ to be ready...";
+                sleep 5;
+              done;
+              echo "RabbitMQ is ready!"

@@ -1,0 +1,26 @@
+image: quay.io/debezium/server:2.5
+
+
+readinessProbe:
+  httpGet:
+    path: /q/health
+    port: 8080
+
+sqlServerToRabbitmq:
+  enabled: true
+  rabbitmq:
+    host: a
+    username: a
+    password: b
+    port: 5672
+    vhost: "/"
+    exchange: loan
+    routingKey: loan
+  sqlServer:
+    host: a
+    username: a
+    password: b
+    port: 1433
+    database: loan
+    tableList: dbo.a,dbo.b
+    prefix: loan

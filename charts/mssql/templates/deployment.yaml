@@ -1,11 +1,11 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: {{ include "mssql-latest.fullname" . }}-secret
+  name: {{ include "mssql-latest.fullname" . }}
   labels:
     {{- include "mssql-latest.labels" . | nindent 4 }}
 spec:
-  replicas: {{ .Values.replicas}}
+  replicas: 1
   selector:
     matchLabels:
       {{- include "mssql-latest.selectorLabels" . | nindent 6 }}
@@ -18,7 +18,6 @@ spec:
       labels:
         {{- include "mssql-latest.selectorLabels" . | nindent 8 }}
     spec:
-      hostname: {{ .Values.hostname}}
       securityContext:
         {{- toYaml .Values.podSecurityContext | nindent 8 }}
       containers:
@@ -41,8 +40,8 @@ spec:
            - name: SA_PASSWORD
              valueFrom:
               secretKeyRef:
-               name: {{ include "mssql-latest.fullname" . }}-secret
-               key: {{  template "mssql.sapassword" . }}
+               name: {{ .Values.secret.Name}}
+               key: {{ .Values.secret.key }}
           volumeMounts:
            - name: mssqldb
              mountPath: /var/opt/mssql

@@ -1,0 +1,14 @@
+apiVersion: rabbitmq.com/v1beta1
+kind: RabbitmqCluster
+metadata:
+  name: {{ include "rabbitmq.fullname" . }}-rabbitmq
+  labels:
+    {{- include "rabbitmq.labels" . | nindent 4 }}
+spec:
+  replicas: {{.Values.replicas}}
+  secretBackend:
+    externalSecret:
+      name: {{ include "rabbitmq.fullname" . }}-rabbitmq-secret
+  persistence:
+    storageClassName: {{.Values.storageClass}}
+    storage: {{.Values.storageSize}}
