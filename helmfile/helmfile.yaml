@@ -48,7 +48,7 @@ releases:
       - name: image.repository
         value: confiape/loan
       - name: image.tag
-        value: sha-e876bd0-migrations
+        value: sha-03891ac-migrations
       - name: env.ConnectionStrings__SqlServer__Host
         value: 'mssql-{{ .Values.name }}-mssql'
       - name: env.ConnectionStrings__SqlServer__Database
@@ -70,7 +70,7 @@ releases:
       - name: image.repository
         value: confiape/loan
       - name: image.tag
-        value: sha-e876bd0-migrations
+        value: sha-03891ac-migrations
       - name: env.ConnectionStrings__SqlServer__Host
         value: 'mssql-{{ .Values.name }}-mssql'
       - name: env.ConnectionStrings__SqlServer__Database
@@ -107,7 +107,7 @@ releases:
       - name: image.repository
         value: confiape/loan
       - name: image.tag
-        value: sha-e876bd0-consumer
+        value: sha-03891ac-consumer
       # registry
       - name: imagePullSecrets[0].name
         value: '{{ .Values.name }}-secret-registry'
@@ -158,11 +158,13 @@ releases:
   - name: '{{ .Values.name }}-{{ .Environment.Name }}-app'
     namespace: '{{ .Values.namespace }}'
     chart: ../charts/confiape-app
+    needs:
+      - '{{ .Values.name }}-debezium'
     set:
       - name: image.repository
         value: confiape/loan
       - name: image.tag
-        value: sha-e876bd0
+        value: sha-03891ac
 
       - name: imagePullSecrets[0].name
         value: '{{ .Values.name }}-secret-registry'
