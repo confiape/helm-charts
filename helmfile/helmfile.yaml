@@ -5,7 +5,7 @@ environments:
       - namespace: dev
       - mssqlDatabase: loan
       - mssqlSaPassword: warwe#$1sasa
-      - dockerConfig:
+      - dockerConfig: eyJhdXRocyI6eyJodHRwczovL2luZGV4LmRvY2tlci5pby92MS8iOnsidXNlcm5hbWUiOiJjb25maWFwZSIsInBhc3N3b3JkIjoiQWxpem9ubWVsYW5pMTIzQCIsImVtYWlsIjoid2FycmVuLmFyb25pQGNvbmZpYXBlLm9yZyIsImF1dGgiOiJZMjl1Wm1saGNHVTZRV3hwZW05dWJXVnNZVzVwTVRJelFBPT0ifX19
 helmDefaults:
   wait: true
   waitForJobs: true

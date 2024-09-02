@@ -13,7 +13,7 @@ jobs:
     - name: npm install, build, and test
       run: |
           # Lista de charts a procesar
-          CHARTS_DIRS=("charts/confiape-app" "charts/secrets" "charts/mssql" "charts/basic-objects")
+          CHARTS_DIRS=("charts/confiape-app" "charts/secrets" "charts/mssql" "charts/basic-objects" "charts/debezium" "charts/job" "charts/rabbitmq" "charts/worker")
 
           # Recorremos cada chart en la lista
           for CHART_DIR in "${CHARTS_DIRS[@]}"; do
