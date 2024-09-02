@@ -1,0 +1,42 @@
+kind: ConfigMap
+apiVersion: v1
+metadata:
+  name: {{ include "debezium.fullname" . }}-config
+data:
+  {{- if .Values.sqlServerToRabbitmq.enabled }}
+  application.properties: |
+    debezium.sink.type=rabbitmq
+    debezium.sink.rabbitmq.connection.host={{.Values.sqlServerToRabbitmq.rabbitmq.host}}
+    debezium.sink.rabbitmq.connection.port={{.Values.sqlServerToRabbitmq.rabbitmq.port}}
+    debezium.sink.rabbitmq.connection.username={{.Values.sqlServerToRabbitmq.rabbitmq.username}}
+    debezium.sink.rabbitmq.connection.password={{.Values.sqlServerToRabbitmq.rabbitmq.password}}
+    debezium.sink.rabbitmq.connection.virtual.host={{.Values.sqlServerToRabbitmq.rabbitmq.vhost}}
+    debezium.sink.rabbitmq.ackTimeout=3000
+    debezium.sink.rabbitmq.exchange={{.Values.sqlServerToRabbitmq.rabbitmq.exchange}}
+    debezium.sink.rabbitmq.routingKey={{.Values.sqlServerToRabbitmq.rabbitmq.routingKey}}
+
+    debezium.source.connector.class=io.debezium.connector.sqlserver.SqlServerConnector
+    debezium.source.database.hostname={{.Values.sqlServerToRabbitmq.sqlServer.host }}
+    debezium.source.database.port={{.Values.sqlServerToRabbitmq.sqlServer.port }}
+    debezium.source.database.user={{.Values.sqlServerToRabbitmq.sqlServer.username }}
+    debezium.source.database.password={{.Values.sqlServerToRabbitmq.sqlServer.password }}
+    debezium.source.database.names={{.Values.sqlServerToRabbitmq.sqlServer.database }}
+    debezium.source.database.trustServerCertificate=true
+
+    debezium.source.table.include.list={{.Values.sqlServerToRabbitmq.sqlServer.tableList }}
+    debezium.source.topic.prefix={{.Values.sqlServerToRabbitmq.sqlServer.prefix }}
+
+    debezium.source.event.processing.failure.handling.mode=ignore
+    debezium.source.plugin.name=pgoutput
+    debezium.source.offset.storage.file.filename=data/offsets.dat
+    debezium.source.offset.flush.interval.ms=0
+    debezium.source.database.allowPublicKeyRetrieval=true
+    debezium.source.schema.history.internal=io.debezium.relational.history.MemorySchemaHistory
+
+    include.schema.changes=false
+    transforms.unwrap.delete.handling.mode=rewrite
+
+    debezium.format.key=json
+    debezium.format.value=json
+    quarkus.log.console.json=false
+{{- end}}

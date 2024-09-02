@@ -1,0 +1,31 @@
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: "{{ include "mssql-latest.fullname" . }}-test-connection"
+  labels:
+    app.kubernetes.io/name: "{{ include "mssql-latest.fullname" . }}"
+spec:
+  backoffLimit: 0
+  ttlSecondsAfterFinished: 30
+  template:
+    spec:
+      restartPolicy: Never
+      containers:
+        - name: mssql-connection
+          image: mcr.microsoft.com/mssql-tools
+          env:
+            - name: SA_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: {{ .Values.secret.Name}}
+                  key: {{ .Values.secret.key }}
+          command:
+            - /bin/bash
+            - -c
+            - >
+              until /opt/mssql-tools/bin/sqlcmd -S {{ include "mssql-latest.fullname" . }} -U sa -P $SA_PASSWORD -Q "SELECT 1" | grep -q "1";
+              do
+                echo "Waiting for SQL Server to be ready...";
+                sleep 5;
+              done;
+              echo "SQL Server is ready!"

@@ -1,13 +1,7 @@
-# Default values for mssql-latest.
-# This is a YAML-formatted file.
-# Declare variables to be passed into your templates.
-
-replicas: 1
-
 image:
   repository: mcr.microsoft.com/mssql/server
   pullPolicy: IfNotPresent
-  # Overrides the image tag whose default is the chart appVersion.
+
   tag: "2019-latest"
 
 ACCEPT_EULA:
@@ -16,8 +10,10 @@ MSSQL_PID:
   value: "Developer"
 MSSQL_AGENT_ENABLED:
   value: "true"
-hostname: mssqllatest
-sa_password: "Toughpass1!"
+
+secret:
+  Name: secret
+  key: mssqlPassword
 containers:
   ports:
     containerPort: 1433
@@ -28,7 +24,7 @@ podSecurityContext:
   fsGroup: 10001
 
 service:
-  type: LoadBalancer
+  type: ClusterIP
   port: 1433
 
 pvc:

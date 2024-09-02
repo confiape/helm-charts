@@ -44,21 +44,6 @@ service:
   type: ClusterIP
   port: 8081
 
-ingress:
-  enabled: false
-  className: ""
-  annotations: {}
-    # kubernetes.io/ingress.class: nginx
-    # kubernetes.io/tls-acme: "true"
-  hosts:
-    - host: chart-example.local
-      paths:
-        - path: /
-          pathType: ImplementationSpecific
-  tls: []
-  #  - secretName: chart-example-tls
-  #    hosts:
-  #      - chart-example.local
 
 resources: {}
   # We usually recommend not to specify default resources and to leave this as a conscious
@@ -106,27 +91,12 @@ nodeSelector: {}
 tolerations: []
 
 affinity: {}
-env: []
 envFrom: []
-rabbitmq:
-  replicas: 3
-  storageClass: local-path
-  storageSize: 5Gi
-  username: username
-  password: super-secure-password@@
-debezium:
-  replicas: 1
-  image: quay.io/debezium/server:2.5
-  rabbitmqExchange: loan
-  rabbitmqRoutingKey: loan
-  rabbitmqTopicPrefix: loan
-  sqlServerHost: host
-  sqlServerPort: 1433
-  sqlServerUser: host
-  sqlServerPassword: host
-  sqlServerDbName: host
-  sqlserverIncludeTables: host
-consumer:
-  mssql: x
-  RabbitMQ: x
-  QueueName: loan
+env:
+  a: b
+envSecrets: {}
+#envSecrets:
+#  secretName:                        loan-secret:
+#    secretNameKey: secretKey           sa_pass: ConnectionString__SAPassword
+
+

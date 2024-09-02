@@ -1,0 +1,36 @@
+Thank you for installing {{ include "rabbitmq.fullname" . }}!
+
+Your RabbitMQ cluster has been deployed successfully.
+
+To get more information about your RabbitMQ cluster, you can use the following commands:
+
+1. **Check the status of your RabbitMQ Cluster:**
+
+kubectl get rabbitmqclusters {{ include "rabbitmq.fullname" . }}-rabbitmq
+
+
+2. **Access the RabbitMQ Management Interface:**
+- **URL:** http://{{ include "rabbitmq.fullname" . }}-rabbitmq.{{ .Release.Namespace }}.svc:15672
+- **Username:** {{ .Values.username }}
+- **Password:** <secret password>
+
+
+You can access the RabbitMQ management interface using the URL above. This will allow you to manage your queues, exchanges, and other RabbitMQ settings.
+
+3. **Connect to RabbitMQ:**
+- **Host:** {{ printf "%s-rabbitmq.%s.svc" (include "rabbitmq.fullname" .) .Release.Namespace }}
+- **Port:** 5672
+- **Username:** {{ .Values.username }}
+- **Password:** {{ .Values.password }}
+
+Use the above information to connect your applications to the RabbitMQ cluster.
+
+4. **Scale the RabbitMQ cluster:**
+
+kubectl scale rabbitmqcluster {{ include "rabbitmq.fullname" . }}-rabbitmq --replicas=<desired-replicas>
+
+5. **Get logs from the RabbitMQ pods:**
+
+kubectl logs -l app.kubernetes.io/instance={{ .Release.Name }} -f
+
+For more details about managing your RabbitMQ cluster, please refer to the [official RabbitMQ documentation](https://www.rabbitmq.com/).

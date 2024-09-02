@@ -1,0 +1,183 @@
+environments:
+  dev:
+    values:
+      - name: loan
+      - namespace: dev
+      - mssqlDatabase: loan
+      - mssqlSaPassword: warwe#$1sasa
+      - dockerConfig:
+helmDefaults:
+  wait: true
+  waitForJobs: true
+releases:
+  - name: '{{ .Values.name }}-secret'
+    namespace: '{{ .Values.namespace }}'
+    createNamespace: true
+    chart: ../charts/secrets
+    set:
+      - name: secret.{{ .Values.name }}-secret.data.saPassword
+        value: '{{ .Values.mssqlSaPassword }}'
+      - name: secret.{{ .Values.name }}-secret-registry.type
+        value: kubernetes.io/dockerconfigjson
+      - name: secret.{{ .Values.name }}-secret-registry.isBase64
+        value: true
+      - name: secret.{{ .Values.name }}-secret-registry.data.docker
+        value: {{ .Values.dockerConfig }}
+
+  - name: '{{ .Values.name }}-mssql'
+    namespace: '{{ .Values.namespace }}'
+    createNamespace: true
+    chart: ../charts/mssql
+    set:
+      - name: image.tag
+        value: 2022-latest
+      - name: service.type
+        value: ClusterIP
+      - name: secret.Name
+        value: '{{ .Values.name }}-secret'
+      - name: secret.key
+        value: 'saPassword'
+
+  - name: '{{ .Values.name }}-migrations'
+    namespace: '{{ .Values.namespace }}'
+    createNamespace: true
+    chart: ../charts/job
+    needs:
+      - '{{ .Values.name }}-mssql'
+    set:
+      - name: image.repository
+        value: confiape/loan
+      - name: image.tag
+        value: sha-e876bd0-migrations
+      - name: env.ConnectionStrings__SqlServer__Host
+        value: 'mssql-{{ .Values.name }}-mssql'
+      - name: env.ConnectionStrings__SqlServer__Database
+        value: '{{ .Values.name }}'
+      - name: env.ConnectionStrings__SqlServer__Username
+        value: 'sa'
+      - name: envSecrets.{{ .Values.name }}-secret.saPassword
+        value: 'ConnectionStrings__SqlServer__Password'
+      - name: imagePullSecrets[0].name
+        value: '{{ .Values.name }}-secret-registry'
+
+  - name: '{{ .Values.name }}-migration-data-lake'
+    namespace: '{{ .Values.namespace }}'
+    createNamespace: true
+    chart: ../charts/job
+    needs:
+      - '{{ .Values.name }}-migrations'
+    set:
+      - name: image.repository
+        value: confiape/loan
+      - name: image.tag
+        value: sha-e876bd0-migrations
+      - name: env.ConnectionStrings__SqlServer__Host
+        value: 'mssql-{{ .Values.name }}-mssql'
+      - name: env.ConnectionStrings__SqlServer__Database
+        value: '{{ .Values.name }}DataLake'
+      - name: env.ConnectionStrings__SqlServer__Username
+        value: 'sa'
+      - name: envSecrets.{{ .Values.name }}-secret.saPassword
+        value: 'ConnectionStrings__SqlServer__Password'
+      - name: imagePullSecrets[0].name
+        value: '{{ .Values.name }}-secret-registry'
+
+  - name: '{{ .Values.name }}-rabbitmq'
+    namespace: '{{ .Values.namespace }}'
+    createNamespace: true
+    chart: ../charts/rabbitmq
+    set:
+      - name: replicas
+        value: 2
+      - name: service.type
+        value: ClusterIP
+      - name: username
+        value: 'loan-user'
+      - name: password
+        value: 'saPassword_123'
+
+  - name: '{{ .Values.name }}-consumer'
+    namespace: '{{ .Values.namespace }}'
+    createNamespace: true
+    chart: ../charts/worker
+    needs:
+      - '{{ .Values.name }}-migration-data-lake'
+      - '{{ .Values.name }}-rabbitmq'
+    set:
+      - name: image.repository
+        value: confiape/loan
+      - name: image.tag
+        value: sha-e876bd0-consumer
+      # registry
+      - name: imagePullSecrets[0].name
+        value: '{{ .Values.name }}-secret-registry'
+      # sql server
+      - name: env.ConnectionStrings__SqlServer__Host
+        value: 'mssql-{{ .Values.name }}-mssql'
+      - name: env.ConnectionStrings__SqlServer__Database
+        value: '{{ .Values.name }}DataLake'
+      - name: env.ConnectionStrings__SqlServer__Username
+        value: 'sa'
+      - name: envSecrets.{{ .Values.name }}-secret.saPassword
+        value: 'ConnectionStrings__SqlServer__Password'
+      # rabbitmq
+      - name: envSecrets.{{ .Values.name }}-rabbitmq-rabbitmq-secret.username
+        value: 'ConnectionStrings__RabbitMQ__Username'
+      - name: envSecrets.{{ .Values.name }}-rabbitmq-rabbitmq-secret.password
+        value: 'ConnectionStrings__RabbitMQ__Password'
+      - name: envSecrets.{{ .Values.name }}-rabbitmq-rabbitmq-secret.host
+        value: 'ConnectionStrings__RabbitMQ__Host'
+
+  - name: '{{ .Values.name }}-debezium'
+    namespace: '{{ .Values.namespace }}'
+    createNamespace: true
+    chart: ../charts/debezium
+    needs:
+      - '{{ .Values.name }}-consumer'
+    set:
+
+      # sql server
+      - name: sqlServerToRabbitmq.sqlServer.host
+        value: 'mssql-{{ .Values.name }}-mssql'
+      - name: sqlServerToRabbitmq.sqlServer.username
+        value: 'sa'
+      - name: sqlServerToRabbitmq.sqlServer.password
+        value: '{{ .Values.mssqlSaPassword }}'
+      - name: sqlServerToRabbitmq.sqlServer.database
+        value: '{{ .Values.name }}'
+      - name: sqlServerToRabbitmq.sqlServer.tableList
+        value: 'dbo.BorrowerClient,dbo.Loan,dbo.Payment,dbo.Role,dbo.Tag,dbo.TagBorrowerClient,dbo.User,dbo.UserRole'
+      # rabbitmq
+      - name: sqlServerToRabbitmq.rabbitmq.host
+        value: '{{ .Values.name }}-rabbitmq-rabbitmq'
+      - name: sqlServerToRabbitmq.rabbitmq.username
+        value: 'loan-user'
+      - name: sqlServerToRabbitmq.rabbitmq.password
+        value: 'saPassword_123'
+
+  - name: '{{ .Values.name }}-{{ .Environment.Name }}-app'
+    namespace: '{{ .Values.namespace }}'
+    chart: ../charts/confiape-app
+    set:
+      - name: image.repository
+        value: confiape/loan
+      - name: image.tag
+        value: sha-e876bd0
+
+      - name: imagePullSecrets[0].name
+        value: '{{ .Values.name }}-secret-registry'
+
+      - name: env.ConnectionStrings__SqlServer__Host
+        value: 'mssql-{{ .Values.name }}-mssql'
+      - name: env.ConnectionStrings__SqlServer__Database
+        value: '{{ .Values.name }}'
+      - name: env.ConnectionStrings__SqlServer__Username
+        value: 'sa'
+      - name: envSecrets.{{ .Values.name }}-secret.saPassword
+        value: 'ConnectionStrings__SqlServer__Password'
+
+
+      - name: service.port
+        value: "8081"
+      - name: env.ASPNETCORE_URLS
+        value: "http://+:8081"

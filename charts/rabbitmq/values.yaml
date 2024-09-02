@@ -1,0 +1,5 @@
+replicas: 3
+storageClass: local-path
+storageSize: 5Gi
+username: username
+password: super-secure-password@@

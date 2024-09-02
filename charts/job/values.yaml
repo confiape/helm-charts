@@ -1,0 +1,14 @@
+image:
+  repository: nginx
+  pullPolicy: IfNotPresent
+  tag: ""
+
+imagePullSecrets: [ ]
+envFrom: []
+env:
+  a: b
+envSecrets: {}
+#envSecrets:
+#  secretName:                        loan-secret:
+#    secretNameKey: secretKey           sa_pass: ConnectionString__SAPassword
+
