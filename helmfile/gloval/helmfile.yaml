@@ -1,0 +1,31 @@
+repositories:
+  - name: superset
+    url: https://apache.github.io/superset
+  - name: confia-charts
+    url: https://confiape.github.io/helm-charts/
+  - name: bitnami
+    url: https://charts.bitnami.com/bitnami
+releases:
+  - name: superset
+    namespace: superset
+    createNamespace: true
+    chart: superset/superset
+    values:
+      - ./superset.values.yaml
+
+  - name: rabbitmq-system
+    namespace: kube-system
+    createNamespace: true
+    chart: bitnami/rabbitmq-cluster-operator
+
+  - name: basic
+    namespace: basic-system
+    createNamespace: true
+    chart: confia-charts/basic-objects
+    set:
+      - name: REPO_URL
+        value: 'https://github.com/confiape/ConfiaPe.Loans'
+      - name: CLOUDFLARE_TOKEN
+        value: '{{ .Values.CLOUDFLARE_TOKEN }}'
+      - name: ACCESS_TOKEN
+        value: '{{ .Values.RUNNER_TOKEN }}'

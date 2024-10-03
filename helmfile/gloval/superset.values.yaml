@@ -1,0 +1,13 @@
+init:
+  loadExamples: true
+global:
+  postgresql:
+    auth:
+      postgresPassword: thisISaSECRET_1234@123
+configOverrides:
+  secret: |
+    SECRET_KEY = 'KZ07PZfZ8Uwj5fMA18Cl0YCIncMXGoUFtLiEFPNTzwnFFZhGG3T0BD0p'
+bootstrapScript: |
+  #!/bin/bash
+  pip install   pymssql 
+  if [ ! -f ~/bootstrap ]; then echo "Running Superset with uid {{ .Values.runAsUser }}" > ~/bootstrap; fi

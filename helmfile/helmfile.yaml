@@ -1,10 +1,10 @@
 environments:
-  dev:
+  prod:
     values:
       - name: loan
-      - namespace: dev
+      - namespace: prod
       - mssqlDatabase: loan
-      - mssqlSaPassword: warwe#$1sasa
+      - mssqlSaPassword: warwe#$1sweasa
       - dockerConfig: eyJhdXRocyI6eyJodHRwczovL2luZGV4LmRvY2tlci5pby92MS8iOnsidXNlcm5hbWUiOiJjb25maWFwZSIsInBhc3N3b3JkIjoiQWxpem9ubWVsYW5pMTIzQCIsImVtYWlsIjoid2FycmVuLmFyb25pQGNvbmZpYXBlLm9yZyIsImF1dGgiOiJZMjl1Wm1saGNHVTZRV3hwZW05dWJXVnNZVzVwTVRJelFBPT0ifX19
 helmDefaults:
   wait: true
@@ -14,6 +14,7 @@ releases:
     namespace: '{{ .Values.namespace }}'
     createNamespace: true
     chart: ../charts/secrets
+
     set:
       - name: secret.{{ .Values.name }}-secret.data.saPassword
         value: '{{ .Values.mssqlSaPassword }}'
@@ -48,7 +49,7 @@ releases:
       - name: image.repository
         value: confiape/loan
       - name: image.tag
-        value: sha-03891ac-migrations
+        value: sha-d5373b1-migrations
       - name: env.ConnectionStrings__SqlServer__Host
         value: 'mssql-{{ .Values.name }}-mssql'
       - name: env.ConnectionStrings__SqlServer__Database
@@ -70,7 +71,7 @@ releases:
       - name: image.repository
         value: confiape/loan
       - name: image.tag
-        value: sha-03891ac-migrations
+        value: sha-d5373b1-migrations
       - name: env.ConnectionStrings__SqlServer__Host
         value: 'mssql-{{ .Values.name }}-mssql'
       - name: env.ConnectionStrings__SqlServer__Database
@@ -107,7 +108,7 @@ releases:
       - name: image.repository
         value: confiape/loan
       - name: image.tag
-        value: sha-03891ac-consumer
+        value: sha-d5373b1-consumer
       # registry
       - name: imagePullSecrets[0].name
         value: '{{ .Values.name }}-secret-registry'
@@ -164,7 +165,7 @@ releases:
       - name: image.repository
         value: confiape/loan
       - name: image.tag
-        value: sha-03891ac
+        value: sha-d5373b1
 
       - name: imagePullSecrets[0].name
         value: '{{ .Values.name }}-secret-registry'
