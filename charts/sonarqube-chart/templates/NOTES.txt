@@ -1,0 +1,26 @@
+Helm Chart: sonarqube
+
+Descripción:
+Este chart despliega una instancia de SonarQube con una sola réplica, incluye un `Ingress` para exponer el servicio y permite conexión a una base de datos PostgreSQL mediante variables de entorno.
+
+Estructura de archivos:
+- Chart.yaml: Metadata del chart
+- values.yaml: Valores configurables (imagen, PostgreSQL, ingress)
+- templates/_helpers.tpl: Helpers para nombres y etiquetas
+- templates/deployment.yaml: Deployment de SonarQube
+- templates/service.yaml: Servicio para acceder a SonarQube internamente
+- templates/ingress.yaml: Ingress para exponer SonarQube vía HTTP
+- tests/test-connection.yaml: Hook de test para validar conexión HTTP
+
+Variables obligatorias para conexión a PostgreSQL:
+- `postgres.jdbcUrl`
+- `postgres.username`
+- `postgres.password`
+
+Ingress configurado para host `sonarqube.local`, se puede modificar en `values.yaml`.
+
+Notas:
+- Usa la imagen `sonarqube:10.0-community`.
+- Puerto del servicio: `9000`.
+- Puedes desplegarlo junto a PostgreSQL con un `helmfile.yaml` que combine este chart con el oficial de Bitnami.
+
